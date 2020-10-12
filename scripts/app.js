@@ -24,7 +24,6 @@ const renderAlert = (el, text = 'Введите данные корректно'
 
 const validate = () => {
     const el = document.querySelector('.alert');
-    console.log(inputWindow.value);
     if (/[a-zA-Z]/g.test(inputWindow.value)) {
         renderAlert(el, 'Не допускается ввод букв');
         return true;

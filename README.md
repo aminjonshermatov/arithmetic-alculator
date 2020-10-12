@@ -1,2 +1,1 @@
-Simple arithmetic calculator
-You can visit github pages: https://aminjonshermatov.github.io/arithmetic-alculator/
+Simple arithmetic calculator\nYou can visit github pages: https://aminjonshermatov.github.io/arithmetic-alculator/
