@@ -1,0 +1,120 @@
+@font-face {
+    font-family: 'valeraRound';
+    src: url('../fonts/VarelaRound-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'monserrat';
+    src: url('../fonts/MontserratAlternates-Medium.ttf');
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.calculator input,
+.calculator-button {
+    font-family: valeraRound;
+}
+
+body {
+    background: linear-gradient(217deg, rgba(189,195,199,.8), rgba(44,62,50,.7) 70.71%);
+    background-size: cover;
+    height: 100vh;
+    padding-bottom: 12vh;
+    padding-top: 16vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator {
+    max-width: 350px;
+    margin: 0 auto;
+    background: rgba(246, 246, 246,0.7);
+    border: 2px solid #111;
+    border-radius: 6px;
+    box-shadow: 1px 1px 0px #999,
+                2px 2px 0px #999,
+                3px 3px 0px #999,
+                4px 4px 0px #999,
+                5px 5px 0px #999,
+                6px 6px 0px #999;
+}
+
+.calculator input {
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    -moz-box-shadow:    inset 0 0 6px #000000;
+    -webkit-box-shadow: inset 0 0 6px #000000;
+    box-shadow:         inset 0 0 6px #000000;
+
+    padding: 20px 10px;
+    width: 100%;
+    min-height: 12vh;
+    border-bottom: 2px solid #111;
+    color: #333;
+    text-align: right;
+    font-size: 30px;
+    border-radius: 0;
+}
+
+.calculator-button {
+    -moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 10px #000000;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid #111;
+    padding: 20px;
+    color: #EEE;
+    border-radius: 5px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.calculator-buttons {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 15px;
+}
+
+.clear {
+    background: #2d5994;
+    grid-column: span 2;
+}
+
+.backspace {
+    background: #3572DB;
+}
+
+.equals {
+    background: #28D060;
+    grid-column: span 2;
+}
+
+.sign {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.hide {
+    top: -100%;
+    position: fixed;
+    transition: top 0.7s 0s;
+}
+
+.show {
+    top: 8vh;
+    transition: top 0.7s 0s;
+}
+
+.alert {
+    background: rgb(150, 36, 36);
+    border: 1px solid #000;
+    color: #FFF;
+    font-family: monserrat;
+    margin: 0 auto;
+    padding: 4px 6px;
+}

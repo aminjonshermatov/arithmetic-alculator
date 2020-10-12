@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="shortcut icon" href="./favicons/calculator.ico" type="image/x-icon">
+    <script src="./scripts/app.js" defer></script>
+</head>
+<body>
+    <div class="alert hide">
+        <p>Введите данные корректно</p>
+    </div>
+    <div class="calculator">
+
+        <input type="text">
+        
+        <div class="calculator-buttons">
+            <button data-action="backspace" class="calculator-button backspace">&larr;</button>
+            <button data-action="clear" class="calculator-button clear">C</button>
+            <button data-action="divide" class="calculator-button sign">/</button>
+        
+            <button data-action="number" class="calculator-button">7</button>
+            <button data-action="number" class="calculator-button">8</button>
+            <button data-action="number" class="calculator-button">9</button>
+            <button data-action="multiplication" class="calculator-button sign">*</button>
+        
+            <button data-action="number" class="calculator-button">4</button>
+            <button data-action="number" class="calculator-button">5</button>
+            <button data-action="number" class="calculator-button">6</button>
+            <button data-action="minus" class="calculator-button sign">-</button>
+        
+            <button data-action="number" class="calculator-button">1</button>
+            <button data-action="number" class="calculator-button">2</button>
+            <button data-action="number" class="calculator-button">3</button>
+            <button data-action="plus" class="calculator-button sign">&plus;</button>
+        
+            <button data-action="number" class="calculator-button">0</button>
+            <button data-action="dot" class="calculator-button">.</button>
+            <button data-action="equal" class="calculator-button equals">&equals;</button>
+        </div>
+
+    </div>
+</body>
+</html>
