@@ -1,1 +1,1 @@
-Simple arithmetic calculator\You can visit github pages: https://aminjonshermatov.github.io/arithmetic-alculator/\On type words or symbols on input will be alerted
+Simple arithmetic calculator&nbsp;You can visit github pages: https://aminjonshermatov.github.io/arithmetic-alculator/&nbsp;On type words or symbols on input will be alerted
