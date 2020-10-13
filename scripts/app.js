@@ -9,6 +9,8 @@ const buttons = document.querySelector('.calculator-buttons'),
 
 audioClick.volume = 0.5;
 
+inputWindow.focus();
+
 methods.set('/', (a = 1, b = 1) => +a / +b );
 
 methods.set('*', (a = 1, b = 1) => +a * +b);
@@ -29,6 +31,8 @@ actions.set('equal', () => {
     if (method == undefined) return;
 
     inputWindow.value = method(a, b);
+
+    inputWindow.focus();
 });
 
 let res, a, b, signFirst, sign, dotsFirstGroup, dotsSecondGroup;
