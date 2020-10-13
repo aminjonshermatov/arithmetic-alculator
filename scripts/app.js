@@ -62,6 +62,8 @@ const renderAlert = (el, text = 'букв, символов') => {
 
 const validate = e => {
 
+    audioClick.play();
+
     const el = document.querySelector('.alert');
 
     if (e && e.type == 'input') {
@@ -131,6 +133,7 @@ buttons.addEventListener('click', event => {
 
 document.addEventListener('keypress', e => {
     if (e.key === 'Enter') {
+        audioClick.play();
         const methodActions = actions.get('equal');
         methodActions();
     }
