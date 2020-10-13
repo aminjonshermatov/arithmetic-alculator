@@ -16,24 +16,30 @@ methods.set('-', (a = 0, b = 0) => +a - +b);
 
 methods.set('+', (a = 0, b = 0) => +a + +b);
 
-const renderAlert = (el, text = 'Введите данные корректно') => {
-    el.querySelector('p').textContent = text;
+const renderAlert = (el, text = 'букв, символов') => {
+    const notifMsg = el.querySelector('p');
+    notifMsg.textContent = notifMsg.textContent.replace(/sampeText/gi, text);
     el.classList.add('show');
     audioAlert.play();
     setTimeout(() => {
         el.classList.remove('show');
-        el.querySelector('p').textContent = 'Введите данные корректно';
+        notifMsg.textContent = 'Не допускается ввод sampeText';
     }, 2000);
 };
 
 const validate = () => {
     const el = document.querySelector('.alert');
 
-    if (/[a-zA-Z]/g.test(inputWindow.value)) {
-        renderAlert(el, 'Не допускается ввод букв');
+    if (/\w/g.test(inputWindow.value) && /[!@#$%^&()]/g.test(inputWindow.value)) {
+        renderAlert(el, 'букв, символов');
+        return true;
+    }
+
+    if (/[^0-9+]/g.test(inputWindow.value)) {
+        renderAlert(el, 'букв');
         return true;
     } else if (/[!@#$%^&()]/g.test(inputWindow.value)) {
-        renderAlert(el, 'Не допускается ввод символов');
+        renderAlert(el, 'символов');
         return true;
     }
     return false;
