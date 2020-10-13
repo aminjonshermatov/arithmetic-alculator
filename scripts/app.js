@@ -2,11 +2,12 @@
 
 const buttons = document.querySelector('.calculator-buttons'),
     inputWindow = document.querySelector('input'),
-    audioClick = new Audio('../sounds/clickEffect.mp3'),
+    audioClick = new Audio(),
     audioAlert = new Audio('../sounds/alertEffect.mp3');
 
 const methods = new Map();
 
+audioClick.src = '../sounds/clickEffect.mp3';
 audioClick.volume = 0.5;
 
 methods.set('/', (a = 1, b = 1) => +a / +b );
@@ -42,12 +43,12 @@ const validate = () => {
 
 inputWindow.addEventListener('input', validate);
 
-buttons.addEventListener('click',  event => {
+buttons.addEventListener('click', async event => {
     const target = event.target.closest('button');
 
     if (target == null) return;
     
-    audioClick.play();
+    await audioClick.play();
 
     const inputRe = /([-]*)*(\d+([.]*)*\d*)*([+-/*]*)*(\d+([.]*)*\d*)*/g;
 
