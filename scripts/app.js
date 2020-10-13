@@ -1,9 +1,13 @@
 'use strict';
 
 const buttons = document.querySelector('.calculator-buttons'),
-    inputWindow = document.querySelector('input');
+    inputWindow = document.querySelector('input'),
+    audioClick = new Audio('../sounds/clickEffect.mp3'),
+    audioAlert = new Audio('../sounds/alertEffect.mp3');
 
 const methods = new Map();
+
+audioClick.volume = 0.5;
 
 methods.set('/', (a = 1, b = 1) => +a / +b );
 
@@ -16,6 +20,7 @@ methods.set('+', (a = 0, b = 0) => +a + +b);
 const renderAlert = (el, text = 'Введите данные корректно') => {
     el.querySelector('p').textContent = text;
     el.classList.add('show');
+    audioAlert.play();
     setTimeout(() => {
         el.classList.remove('show');
         el.querySelector('p').textContent = 'Введите данные корректно';
@@ -24,6 +29,7 @@ const renderAlert = (el, text = 'Введите данные корректно'
 
 const validate = () => {
     const el = document.querySelector('.alert');
+
     if (/[a-zA-Z]/g.test(inputWindow.value)) {
         renderAlert(el, 'Не допускается ввод букв');
         return true;
@@ -37,10 +43,11 @@ const validate = () => {
 inputWindow.addEventListener('input', validate);
 
 buttons.addEventListener('click',  event => {
-
     const target = event.target.closest('button');
 
     if (target == null) return;
+    
+    audioClick.play();
 
     const inputRe = /([-]*)*(\d+([.]*)*\d*)*([+-/*]*)*(\d+([.]*)*\d*)*/g;
 
