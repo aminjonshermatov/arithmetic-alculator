@@ -31,11 +31,11 @@ const validate = () => {
     const el = document.querySelector('.alert');
 
     if (/[^0-9+\-\=\*\/]/g.test(inputWindow.value)) {
-        if (/\w/g.test(inputWindow.value) && /[!@#$%^&()]/g.test(inputWindow.value)) {
+        if (/\w+/g.test(inputWindow.value) && /[!@#$%^&()]/g.test(inputWindow.value)) {
             renderAlert(el, 'букв, символов');
             return true;
         }
-        
+
         if (/[!@#$%^&()]/g.test(inputWindow.value)) {
             renderAlert(el, 'символов');
             return true;
