@@ -1,14 +1,10 @@
 'use strict';
 
-//const audioClickFile = require('../sounds/clickEffect.mp3');
-
 const buttons = document.querySelector('.calculator-buttons'),
     inputWindow = document.querySelector('input'),
-    //audioClick = new Audio(audioClickFile),
     audioClick = document.querySelector('#click'),
-    audioAlert = document.querySelector('#alert');
-
-const methods = new Map();
+    audioAlert = document.querySelector('#alert'),
+    methods = new Map();
 
 audioClick.volume = 0.5;
 
