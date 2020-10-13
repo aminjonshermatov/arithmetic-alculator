@@ -5,12 +5,12 @@
 const buttons = document.querySelector('.calculator-buttons'),
     inputWindow = document.querySelector('input'),
     //audioClick = new Audio(audioClickFile),
-    audioClick = document.querySelector('#click');
-    //audioAlert = new Audio('../sounds/alertEffect.mp3');
+    audioClick = document.querySelector('#click'),
+    audioAlert = document.querySelector('#alert');
 
 const methods = new Map();
 
-//audioClick.volume = 0.5;
+audioClick.volume = 0.5;
 
 methods.set('/', (a = 1, b = 1) => +a / +b );
 
@@ -23,7 +23,7 @@ methods.set('+', (a = 0, b = 0) => +a + +b);
 const renderAlert = (el, text = 'Введите данные корректно') => {
     el.querySelector('p').textContent = text;
     el.classList.add('show');
-    //audioAlert.play();
+    audioAlert.play();
     setTimeout(() => {
         el.classList.remove('show');
         el.querySelector('p').textContent = 'Введите данные корректно';
