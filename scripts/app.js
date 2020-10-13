@@ -37,7 +37,6 @@ const validate = () => {
 inputWindow.addEventListener('input', validate);
 
 buttons.addEventListener('click',  event => {
-    if (validate()) return;
 
     const target = event.target.closest('button');
 
@@ -49,10 +48,10 @@ buttons.addEventListener('click',  event => {
 
     const renderVariables = () => {
         signFirst = res[1];
-        a = res[2] == undefined ? undefined : signFirst === '-' ? `-${res[2]}` : res[2];
+        a = res[2] == undefined ? '' : signFirst === '-' ? `-${res[2]}` : res[2];
         dotsFirstGroup = res[3] || '';
         sign = res[4];
-        b = res[5];
+        b = res[5] || '';
         dotsSecondGroup = res[6] || '';
     };
 
@@ -67,6 +66,8 @@ buttons.addEventListener('click',  event => {
             inputWindow.value = '';
             break;
         case 'equal':
+            if (validate()) return;
+
             const method = methods.get(sign);
 
             if (method == undefined) return;
@@ -74,16 +75,18 @@ buttons.addEventListener('click',  event => {
             inputWindow.value = method(a, b);
             break;
         default:
-            if (signFirst && signFirst.length >= 1 && target.classList.contains('sign') && a == undefined) {
+            if (validate()) return;
+
+            if (signFirst && signFirst.length >= 1 && target.classList.contains('sign') && a == '') {
                 inputWindow.value = inputWindow.value.slice(0, -1);
             }
 
-            if (sign && sign.length >= 1 && target.classList.contains('sign') && b == undefined) {
+            if (sign && sign.length >= 1 && target.classList.contains('sign') && b == '') {
                 inputWindow.value = inputWindow.value.slice(0, -1);
             }
 
             if (dotsFirstGroup.length >= 1 && dotsSecondGroup.length >= 1 && target.dataset.action === 'dot') return;
-            
+
             inputWindow.value += target.textContent;
             break;
     }
