@@ -35,11 +35,13 @@ const validate = () => {
         return true;
     }
 
-    if (/[^0-9+]/g.test(inputWindow.value)) {
+    if (/[^0-9+\-\=\*\/]/g.test(inputWindow.value)) {
+        if (/[!@#$%^&()]/g.test(inputWindow.value)) {
+            renderAlert(el, 'символов');
+            return true;
+        }
+
         renderAlert(el, 'букв');
-        return true;
-    } else if (/[!@#$%^&()]/g.test(inputWindow.value)) {
-        renderAlert(el, 'символов');
         return true;
     }
     return false;
