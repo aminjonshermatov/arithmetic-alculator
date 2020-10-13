@@ -137,3 +137,7 @@ button:active {
 .button:hover {
     color: #6d5dfc;
 }
+
+.audio {
+    display: none;
+}
