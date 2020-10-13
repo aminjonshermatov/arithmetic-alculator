@@ -5,7 +5,7 @@
 const buttons = document.querySelector('.calculator-buttons'),
     inputWindow = document.querySelector('input'),
     //audioClick = new Audio(audioClickFile),
-    audioClick = document.querySelector('#click'),
+    audioClick = document.querySelector('#click');
     //audioAlert = new Audio('../sounds/alertEffect.mp3');
 
 const methods = new Map();
