@@ -136,3 +136,13 @@ button:active {
 .audio {
     display: none;
 }
+
+@media only screen and (max-width: 678px) {
+    .calculator {
+        max-width: 250px;
+    }
+
+    .calculator-button {
+        padding: 10px;
+    }
+}
