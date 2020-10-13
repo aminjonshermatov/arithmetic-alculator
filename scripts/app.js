@@ -4,7 +4,8 @@ const buttons = document.querySelector('.calculator-buttons'),
     inputWindow = document.querySelector('input'),
     audioClick = document.querySelector('#click'),
     audioAlert = document.querySelector('#alert'),
-    methods = new Map();
+    methods = new Map(),
+    actions = new Map();
 
 audioClick.volume = 0.5;
 
@@ -15,6 +16,34 @@ methods.set('*', (a = 1, b = 1) => +a * +b);
 methods.set('-', (a = 0, b = 0) => +a - +b);
 
 methods.set('+', (a = 0, b = 0) => +a + +b);
+
+actions.set('backspace', () => inputWindow.value = inputWindow.value.slice(0, -1));
+
+actions.set('clear', () => inputWindow.value = '');
+
+actions.set('equal', () => {
+    if (validate()) return;
+
+    const method = methods.get(sign);
+
+    if (method == undefined) return;
+
+    inputWindow.value = method(a, b);
+});
+
+let res, a, b, signFirst, sign, dotsFirstGroup, dotsSecondGroup;
+
+const renderVariables = () => {
+    const inputRegExp = /([-]*)*(\d+([.]*)*\d*)*([+-/*]*)*(\d+([.]*)*\d*)*/g;
+    res = inputRegExp.exec(inputWindow.value);
+
+    signFirst = res[1] || '+';
+    a = res[2] == undefined ? undefined : signFirst === '-' ? `-${res[2]}` : res[2];
+    dotsFirstGroup = res[3] || '';
+    sign = res[4];
+    b = res[5];
+    dotsSecondGroup = res[6] || '';
+};
 
 const renderAlert = (el, text = 'букв, символов') => {
     const notifMsg = el.querySelector('p');
@@ -27,21 +56,38 @@ const renderAlert = (el, text = 'букв, символов') => {
     }, 2000);
 };
 
-const validate = () => {
+const validate = e => {
+
     const el = document.querySelector('.alert');
+
+    if (e && e.type == 'input') {
+
+        renderVariables();
+
+        if (signFirst && signFirst.length >= 2 && a == undefined) {
+            inputWindow.value = inputWindow.value.slice(0, -1);
+        }
+    
+        if (sign && sign.length >= 2 && b == undefined) {
+            inputWindow.value = inputWindow.value.slice(0, -1);
+        }
+    }
 
     if (/[^0-9+\-\=\*\/]/g.test(inputWindow.value)) {
         if (/\w+/g.test(inputWindow.value) && /[!@#$%^&()]/g.test(inputWindow.value)) {
             renderAlert(el, 'букв, символов');
+            inputWindow.value = inputWindow.value.slice(0, -1);
             return true;
         }
 
         if (/[!@#$%^&()]/g.test(inputWindow.value)) {
             renderAlert(el, 'символов');
+            inputWindow.value = inputWindow.value.slice(0, -1);
             return true;
         }
 
         renderAlert(el, 'букв');
+        inputWindow.value = inputWindow.value.slice(0, -1);
         return true;
     }
     return false;
@@ -49,59 +95,39 @@ const validate = () => {
 
 inputWindow.addEventListener('input', validate);
 
-buttons.addEventListener('click', async event => {
+buttons.addEventListener('click', event => {
     const target = event.target.closest('button');
 
     if (target == null) return;
     
-    await audioClick.play();
+    audioClick.play();
 
-    const inputRe = /([-]*)*(\d+([.]*)*\d*)*([+-/*]*)*(\d+([.]*)*\d*)*/g;
-
-    let res, a, b, signFirst, sign, dotsFirstGroup, dotsSecondGroup;
-
-    const renderVariables = () => {
-        signFirst = res[1];
-        a = res[2] == undefined ? '' : signFirst === '-' ? `-${res[2]}` : res[2];
-        dotsFirstGroup = res[3] || '';
-        sign = res[4];
-        b = res[5] || '';
-        dotsSecondGroup = res[6] || '';
-    };
-
-    res = inputRe.exec(inputWindow.value);
     renderVariables();
 
-    switch (target.dataset.action) {
-        case 'backspace':
+    const methodActions = actions.get(target.dataset.action);
+
+    if (methodActions != undefined) {
+        methodActions();
+    } else {
+        if (validate()) return;
+
+        if (signFirst && signFirst.length >= 1 && target.classList.contains('sign') && a == '') {
             inputWindow.value = inputWindow.value.slice(0, -1);
-            break;
-        case 'clear':
-            inputWindow.value = '';
-            break;
-        case 'equal':
-            if (validate()) return;
+        }
 
-            const method = methods.get(sign);
+        if (sign && sign.length >= 1 && target.classList.contains('sign') && b == '') {
+            inputWindow.value = inputWindow.value.slice(0, -1);
+        }
 
-            if (method == undefined) return;
+        if (dotsFirstGroup.length >= 1 && dotsSecondGroup.length >= 1 && target.dataset.action === 'dot') return;
 
-            inputWindow.value = method(a, b);
-            break;
-        default:
-            if (validate()) return;
+        inputWindow.value += target.textContent;
+    }
+});
 
-            if (signFirst && signFirst.length >= 1 && target.classList.contains('sign') && a == '') {
-                inputWindow.value = inputWindow.value.slice(0, -1);
-            }
-
-            if (sign && sign.length >= 1 && target.classList.contains('sign') && b == '') {
-                inputWindow.value = inputWindow.value.slice(0, -1);
-            }
-
-            if (dotsFirstGroup.length >= 1 && dotsSecondGroup.length >= 1 && target.dataset.action === 'dot') return;
-
-            inputWindow.value += target.textContent;
-            break;
+document.addEventListener('keypress', e => {
+    if (e.key === 'Enter') {
+        const methodActions = actions.get('equal');
+        methodActions();
     }
 });
